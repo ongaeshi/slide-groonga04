@@ -86,7 +86,7 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
     </hgroup>
     <article>
       <ul>
-        <li>Milkodeについて
+        <li>Milkodeの紹介
         <li>rroongaの使い方
         <li>実装の解説
       </ul>
@@ -96,46 +96,33 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
   <slide class="segue dark nobackground">
     <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
     <hgroup class="auto-fadein">
-      <h2>Milkodeについて</h2>
+      <h2>Milkodeの紹介</h2>
     </hgroup>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>コードを読むことの重要性は年々向上</h2>
+      <h2>何なの?</h2>
     </hgroup>
     
     <article>
-      <br>
-      <img style='height: 515px' src='images/milkode-tokyu05.jpg'>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>しかし、読むためのツールは変わっていない・・</h2>
-    </hgroup>
-    
-    <article>
+      <p>
+        <img style='height: 400px' src='images/milkode_demo.jpg'>
+      </p>
       <ul>
-        <li>grepは時間がかかる
-        <li>Webのソースコード検索エンジンはAND検索が出来ない、プライベートなコードに使えない
-        <li>"grep" + "Web検索" = ??
+        <li>ソースコード検索に特化した検索エンジン
+        <li>ローカルやWeb上にあるソースコードを登録して高速に検索
       </ul>
-      <div class="build">
-        <p class="red build-end" style="font-size: 50px">もっとコードリーディングを簡単にしたい!!</p>
-      </div>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>Milkodeの特徴</h2>
+      <h2>特徴</h2>
     </hgroup>
     
     <article>
       <ul class="build">
-        <li>ソースコードを読むための検索エンジン
         <li>高速 (20,000ファイル位であれば1秒以内に検索)
         <li>行指向 (AND検索)
         <li>エディタでもブラウザでも
@@ -148,14 +135,16 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
       <h2>ソフトウェアの構成</h2>
     </hgroup>
     <article>
-      <ul class="build">
-        <li>Ruby, Haml, JavaScript
+      <ul>
+        <li>Ruby & Haml & JavaScript
         <li>rroonga (ストレージ & 検索エンジン)
         <li>Thor    (コマンドライン)
         <li>Sinatra (Webアプリ)
         <li>CodeRay (ソースコードの色付け)
-        <li>他にもたくさんのgemのおかげで出来てます
       </ul>
+      
+      <p>他にもたくさんのgemのおかげで出来てます</p>
+
     </article>
   </slide>
 
@@ -165,7 +154,7 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
     </hgroup>
     <article>
       <p>
-        <img style='height: 580px' src='images/milkode_demo.jpg'>
+        <img style='height: 580px' src='images/milkode_screenshot_00.jpg'>
       </p>
     </article>
   </slide>
@@ -175,6 +164,27 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
     <hgroup class="auto-fadein">
       <h2>rroongaの使い方</h2>
     </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>使用個所</h2>
+    </hgroup>
+    <article>
+      <h3>Groonga::Database</h3>
+      <ul>
+        <li>ソースコードのテーブル (documents)
+        <li>パッケージのテーブル (packages)
+          <ul>
+            <li>milkode, .emacs.d, rroonga-2.0.6 等
+          </ul>
+      </ul>
+      <h3>主な使い方</h3>
+      <ul>
+        <li>コマンドラインからの入力を解析→データベースに問い合わせ→標準出力
+        <li>Webアプリの入力を解析→データベースに問い合わせ→HTML
+      </ul>
+    </article>
   </slide>
 
   <slide>
@@ -189,7 +199,7 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
       </ul>
       <div class="build">
         <p class="red" style="font-size: 50px">ローカルアプリとも相性がよい</p>
-        <p class="red" style="font-size: 50px">sqliteの代わりに使える</p>
+        <p class="red" style="font-size: 50px">sqliteの代わりとして使える</p>
       </div>
     </article>
   </slide>
@@ -201,8 +211,7 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
     <article>
       <ul>
         <li>Rubyだけで書ける
-        <li>Rubyらしく読み書きしやすいAPI
-        <li>ブロックで検索式を記述
+        <li>ブロックで検索式を記述、Rubyらしく読み書きしやすいAPI
       </ul>
       <div class="build">
         <p class="red build-end" style="font-size: 50px">Cは仕事以外で使いたくない・・</p>
