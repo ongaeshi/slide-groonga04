@@ -1,5 +1,18 @@
 # 全文検索エンジンgroongaを囲む夕べ 3 原稿 「rroongaを使ったソースコード検索エンジン Milkode」
 
+## 準備:
+Term2で実行
+{{{
+milk setdb ~/tmp/milkode_tokyu05
+milk web
+}}}
+
+Term2 2枚目
+{{{
+cd ~/tmp/milkode_rroonga
+milk web -p 9293
+}}}
+
 ## ページ1: タイトルロゴ
 
 ## ページ2: rroongaを使ったソースコード検索エンジン Milkode
