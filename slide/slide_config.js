@@ -1,7 +1,7 @@
 var SLIDE_CONFIG = {
   // Slide settings
   settings: {
-    title: 'rroongaを使ったソースコード検索エンジン Milkode',
+    title: 'Milkode2013年の歩み',
     // subtitle: 'コンソールアプリにも便利',
     useBuilds: true, // Default: true. False will turn off slide animation builds.
     usePrettify: true, // Default: true
@@ -33,4 +33,3 @@ var SLIDE_CONFIG = {
     github: 'http://github.com/you'
   }*/]
 };
-

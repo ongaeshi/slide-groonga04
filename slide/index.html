@@ -8,7 +8,7 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
 <!DOCTYPE html>
 <html>
 <head>
-  <title>rroongaを使ったソースコード検索エンジン Milkode</title>
+  <title>Milkode2013年の歩み</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
@@ -59,9 +59,9 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
 
       <h3>最近作ったもの</h3>
       <ul>
-        <li>QiitaMail
-        <li>FireLink
-        <li>auto-shell-commend
+        <li>RubyKokuban (mruby+openFramework)
+        <li>mruby Code Search (mrubyソースコード検索)
+        <li>FireLink (Firefoxアドオン)
       </ul>
     </article>
   </slide>
@@ -72,9 +72,10 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
     </hgroup>
     <article>
       <ul style="font-size: 50px">
-        <li>Milkodeの紹介
-        <li>何故rroongaを使ったの？
-        <li>rroongaの使い方
+        <li>Milkodeって何？</li>
+        <li>デモ</li>
+        <li>今年はじめて使ったgroongaの機能</li>
+        <li>来年の抱負</li>
       </ul>
     </article>
   </slide>
@@ -82,7 +83,7 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
   <slide class="segue dark nobackground">
     <!-- <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside> -->
     <hgroup class="auto-fadein">
-      <h2>Milkodeの紹介</h2>
+      <h2>Milkodeって何？</h2>
     </hgroup>
   </slide>
 
@@ -98,6 +99,7 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
       <ul>
         <li>ソースコード検索に特化した検索エンジン
         <li>ローカルやWeb上にあるソースコードを登録して高速に検索
+        <li>検索エンジン&amp;ストレージとしてgroonga(rroonga)を採用
       </ul>
     </article>
   </slide>
@@ -112,28 +114,11 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
         <li>高速 (20,000ファイル位であれば1秒以内に検索)
         <li>行指向 (AND検索)
         <li>エディタでもブラウザでも
+        <li>パッケージ名、拡張子、ディレクトリ名でドリルダウン <b><span class="red">New!!</span></b></li>
       </ul>
       <div class="build">
         <p class="red build-end">もっとコードリーディングを簡単に！</p>
       </div>
-    </article>
-  </slide>
-
-  <slide>
-    <hgroup>
-      <h2>ソフトウェアの構成</h2>
-    </hgroup>
-    <article>
-      <ul>
-        <li>Ruby & Haml & JavaScript
-        <li>rroonga (ストレージ & 検索エンジン)
-        <li>Thor    (コマンドライン)
-        <li>Sinatra (Webアプリ)
-        <li>CodeRay (ソースコードの色付け)
-      </ul>
-      
-      <p>他にもたくさんのgemのおかげで出来てます</p>
-
     </article>
   </slide>
 
