@@ -98,6 +98,7 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
       <ul>
         <li>ローカルやWeb上にあるソースコードを登録して高速に検索
         <li>検索エンジン&amp;ストレージとしてgroonga(rroonga)を採用
+        <li>Ruby + rroonga だけでどこまで出来るのか？の一例として
       </ul>
     </article>
   </slide>
@@ -108,14 +109,14 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
     </hgroup>
     
     <article>
-      <ul class="build">
-        <li>高速 (20,000ファイル位であれば1秒以内に検索)
+      <ul>
+        <li>高速 (100,000ファイル位であれば1〜2秒以内で検索)
         <li>行指向 (AND検索)
         <li>エディタでもブラウザでも
         <li>パッケージ名、拡張子、ディレクトリ名でドリルダウン <b><span class="red">New!!</span></b></li>
       </ul>
       <div class="build">
-        <p class="red build-end">ソースコードリーディングをもっと簡単にしたい</p>
+        <p class="red build-end">ソースコードを簡単に読みたい</p>
       </div>
     </article>
   </slide>
@@ -125,13 +126,20 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
       <h2>2013年の歩み</h2>
     </hgroup>
 
-    <ul>
-      <li>洗い出し(blogとか読み返す)</li>
-      <li>GNUの<a href="http://www.gnu.org/software/global/links.html">'Source code reading' related sites</a>で紹介された</li> (何故？)
-      <li>るびきちさんの突っ込みを受けてgmilkを高速化した</li>
-      <li>髙橋さんにプクリクエストを頂いて国際化した</li>
-      <li>mruby Code Search</li>
-    </ul>
+    <article>
+      <ul>
+        <li>01-29 TravisCIサポート、svnに対応</li>
+        <li>03-28 複数行の検索に対応</li>
+        <li>05-08 Ruby2.0対応</li>
+        <li>06-11 るびきちさんに突っ込みを頂いてgmilkを高速化</li>
+        <li>08-10 ctagsとの連携</li>
+        <li>09-16 GNUの<a href="http://www.gnu.org/software/global/links.html">'Source code reading' related sites</a>で紹介される(何故？)</li>
+        <li>10-01 mruby Code Search の作成開始</li>
+        <li>10-03 国際化のプルリクを髙橋さんから頂く</li>
+        <li>10-05 GitHubボタンを追加、キーワードのマッチ箇所をハイライト</li>
+        <li>11-29 プロジェクト名、拡張子、ディレクトリ名でドリルダウン、国際化</li>
+      </ul>
+    </article>
   </slide>
 
   <slide>
@@ -143,8 +151,8 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
         <img style='height: 400px' src='images/milkode_screenshot_00.jpg'>
       </p>
       <ul>
-        <li>Rails の ActiveSupport#blank? を探す
-        <li>Macintosh HD 内の全テキストから検索
+        <li>マッチ個所のハイライト
+        <li>プロジェクト、拡張子、ディレクトリでドリルダウン
       </ul>
     </article>
   </slide>
@@ -157,18 +165,56 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
 
   <slide>
     <hgroup>
-      <h2>ドリルダウンを使ったパッケージ、拡張子、ディレクトリによる絞り込み</h2>
+      <h2>ドリルダウン</h2>
     </hgroup>
     <article>
+      <p>パッケージ、拡張子、ディレクトリによる絞り込み</p>
+      <img style='height: 400px' src='images/slide-groonga04-01.png'>
     </article>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>groongaでドリルダウンを使うには？</h2>
+      <h2>rroongaでドリルダウンを使うには？</h2>
     </hgroup>
     <article>
-      groongaでドリルダウンを実現するのはとても簡単でした。
+      <p>とっても簡単でした、早く対応すればよかったです。</p>
+      <pre class="prettyprint" data-lang="ruby">
+   # rroongaのテーブルを検索
+   result = table.select {|record| ... }
+
+   # 結果に対してgroupメソッドを呼ぶ
+   drilled = result.group("suffix")   # "suffix"カラムにドリルダウン!!
+
+   # 先頭を取得
+   r = drilled.first
+
+   # マッチ数とキーを取得
+   p [r.n_sub_records, r.key] #=> [356, "md"]
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>まとめると</h2>
+    </hgroup>
+    <article>
+      <p>Milkodeでは以下のようなメソッドになりました。</p>
+      <pre class="prettyprint" data-lang="ruby">
+    # ドリルダウン結果を配列で返す(マッチ数、降順)
+    # column .. カラム名
+    # num .. 取得したい結果の数
+    def self.drilldown(result, column, num = nil)
+      drilled = result.group(column).map {|record|
+        [record.n_sub_records, record.key]
+      }.sort_by {|a|
+        a[0]
+      }.reverse
+
+      num ? drilled[0, num] : drilled
+    end
+</pre>
     </article>
   </slide>
 
@@ -177,27 +223,39 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
       <h2>ひっかかったこと</h2>
     </hgroup>
     <article>
-      拡張子が(何故か)textカラムだったのでドリルダウン対象に出来なかった。
-      1.4でstringカラムに変更したのでmilk rebuild --all が必要に
-      ドリルダウンにしたいものはカラム種類に気を付けましょう。
+      <ul>
+        <li>拡張子(suffix)が(何故か)textカラムだったのでドリルダウン対象に出来なかった。</li>
+        <li>1.4でstringカラムに変更したのでmilk rebuild --all が必要になってしまった。</li>
+        <li>将来的にドリルダウンしたいものはカラム種類に気を付けましょう。</li>
+      </ul>
     </article>
-  </slide>
-
-  <slide class="segue dark nobackground">
-    <hgroup class="auto-fadein">
-      <h2>2014年の抱負</h2>
-    </hgroup>
   </slide>
 
   <slide>
     <hgroup>
-      <h2>やりたいこと</h2>
+      <h2>言いたかったこと</h2>
     </hgroup>
     <article>
-      webデザインの改善
-      検索機能の向上
-      国際化
-      海外の人にも使ってもらいたい(どこで宣伝すればいいんだろう？)
+      <ul>
+        <li>rroonga(groonga)でドリルダウンは超簡単なのでみんなやるといいよ
+        <li>ドリルダウンしたい要素のカラム種類には気をつけよう
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>2014年の抱負</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>UIの改善(デザインセンスが欲しいです)</li>
+        <li>検索機能の向上(サジェスト検索やりたい)</li>
+        <li>国際化(あと一息)</li>
+        <li>海外の人にも使ってもらいたい(どこで宣伝すればいいんだろう？)</li>
+      </ul>
+
+      <p>分からないことだらけです。みなさまどうかお助け下さい。</p>
     </article>
   </slide>
 
@@ -205,8 +263,8 @@ URL: http://milkode.ongaeshi.me/slide/milkode-rroonga
     <aside class="gdbar right"><img src="images/ongaeshi.jpg"></aside>
     <article class="flexbox vleft auto-fadein">
       <h2>ありがとうございました</h2>
-      <p>是非Milkodeに触れてみてください</br>
-        どうぞよろしくお願い致します</p>
+      <p>是非Milkodeに触れてみてください。</br>
+        よかったらこの後の懇親会などで感想お聞かせ下さい。</p>
     </article>
     <p class="auto-fadein" data-config-contact>
       <!-- populated from slide_config.json -->
